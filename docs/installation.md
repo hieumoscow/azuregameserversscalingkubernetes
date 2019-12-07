@@ -313,7 +313,7 @@ kubectl create secret generic openarena-storage-secret --from-literal=azurestora
 Then, you can use this command to launch a DedicatedGameServerCollection with 5 OpenArena DedicatedGameServers.
 
 ```bash
-kubectl create -f https://raw.githubusercontent.com/dgkanatsios/azuregameserversscalingkubernetes/master/artifacts/examples/openarena/dedicatedgameservercollection.yaml
+kubectl create -f https://raw.githubusercontent.com/hieumoscow/azuregameserversscalingkubernetes/master/artifacts/examples/openarena/dedicatedgameservercollection.yaml
 ```
 
 Don't forget that you can open an [issue](https://github.com/dgkanatsios/azuregameserversscalingkubernetes/issues) in case you need any help!
