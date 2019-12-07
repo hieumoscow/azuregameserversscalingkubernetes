@@ -14,7 +14,8 @@ AKS_LOCATION=koreacentral # AKS datacenter location
 # create a resource group
 az group create --name $AKS_RESOURCE_GROUP --location $AKS_LOCATION
 # create a new AKS cluster
-az aks create --resource-group $AKS_RESOURCE_GROUP --name $AKS_NAME --node-count 1 --ssh-key-value ~/.ssh/id_rsa.pub --node-vm-size Standard_A1_v2 --kubernetes-version 1.12.5 # this command will install latest AKS version with RBAC and take some time...
+az aks create --resource-group $AKS_RESOURCE_GROUP --name $AKS_NAME --node-count 1 --ssh-key-value ~/.ssh/id_rsa.pub --kubernetes-version 1.13.11 # this command will install latest AKS version with RBAC and take some time...
+
 sudo az aks install-cli # this will install kubectl
 az aks get-credentials --resource-group $AKS_RESOURCE_GROUP --name $AKS_NAME
 ```
