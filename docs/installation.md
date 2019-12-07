@@ -32,6 +32,11 @@ This project requires VMs/Kubernetes Worker Nodes to have Public IPs and be able
 
 Alternatively, you can use the following command, after setting the `$RESOURCE_GROUP_WITH_AKS_RESOURCES` and `$NSG_NAME` variables with proper values:
 
+```
+RESOURCE_GROUP_WITH_AKS_RESOURCES=$(az resource show --namespace Microsoft.ContainerService --resource-type managedClusters -g $AKS_RESOURCE_GROUP -n $AKS_NAME -o json | jq .properties.nodeResourceGroup | tr -d '"')
+NSG_NAME=aks-agentpool-58982476-nsg
+```
+
 ```bash
 az network nsg rule create \
   --resource-group $RESOURCE_GROUP_WITH_AKS_RESOURCES \
