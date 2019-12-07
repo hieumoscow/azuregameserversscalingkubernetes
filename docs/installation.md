@@ -54,13 +54,17 @@ az network nsg rule create \
 
 As of now, AKS Nodes don't get a Public IP by default (even though you could use [acs-engine](https://github.com/Azure/acs-engine) to create a self-managed K8s cluster that supports that). To assign Public IP to a Node/VM, you can find the Resource Group where the AKS resources are installed on the [portal](https://portal.azure.com) (it should have a name like `MC_resourceGroupName_AKSName_location`). Then, you can follow the instructions [here](https://blogs.technet.microsoft.com/srinathv/2018/02/07/how-to-add-a-public-ip-address-to-azure-vm-for-vm-failed-over-using-asr/) to create a new Public IP and assign it to the Node/VM. For more information on Public IPs for VM NICs, see [this document](https://docs.microsoft.com/azure/virtual-network/virtual-network-network-interface-addresses). 
 
-Alternatively, you can use [this](https://github.com/dgkanatsios/AksNodePublicIPController) project which will take care of
+Alternatively, you can use [this](https://github.com/hieumoscow/AksNodePublicIPController) project which will take care of
 - Creating and assigning Public IPs to existing Nodes
 - Creating and assigning Public IPs to new Nodes, e.g. in case of a cluster scale out
 - Deleting Public IPs for Nodes that get removed from the cluster, e.g. cluster scale in
 
-You can check its [instructions](https://github.com/dgkanatsios/AksNodePublicIPController/blob/master/README.md), setup is pretty easy. 
+You can check its [instructions](https://github.com/hieumoscow/AksNodePublicIPController/blob/master/README.md), setup is pretty easy. 
 
+```
+kubectl create -n kube-system -f https://raw.githubusercontent.com/hieumoscow/AksNodePublicIPController/master/deploy.yaml
+# this gets created into *kube-system* namespace, change it on the deploy.yaml
+```
 ## CRD and APIServer/Controllers installation
 
 First of all, create a Kubernetes secret that will hold the access code for the API Server's endpoints:
