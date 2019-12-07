@@ -9,7 +9,7 @@ az login # you don't need to do this if you're using Azure Cloud shell
 # you should modify these values to your preferred ones
 AKS_RESOURCE_GROUP=aksopenarenarg # name of the resource group AKS will be installed
 AKS_NAME=aksopenarena # AKS cluster name
-AKS_LOCATION=westeurope # AKS datacenter location
+AKS_LOCATION=koreacentral # AKS datacenter location
 
 # create a resource group
 az group create --name $AKS_RESOURCE_GROUP --location $AKS_LOCATION
@@ -66,17 +66,17 @@ kubectl create secret generic apiaccesscode --from-literal=code=YOUR_CODE_HERE
 Then, create the DedicatedGameServer Custom Resource Definition:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/dgkanatsios/azuregameserversscalingkubernetes/master/artifacts/crds/dedicatedgameservercollection.yaml 
-kubectl apply -f https://raw.githubusercontent.com/dgkanatsios/azuregameserversscalingkubernetes/master/artifacts/crds/dedicatedgameserver.yaml
+kubectl apply -f https://raw.githubusercontent.com/hieumoscow/azuregameserversscalingkubernetes/master/artifacts/crds/dedicatedgameservercollection.yaml 
+kubectl apply -f https://raw.githubusercontent.com/hieumoscow/azuregameserversscalingkubernetes/master/artifacts/crds/dedicatedgameserver.yaml
 ```
 
 Create `apiserver` and `controller` K8s deployments:
 
 ```bash
 # for an RBAC-enabled cluster (use this if you have followed the instructions step by step)
-kubectl apply -f https://raw.githubusercontent.com/dgkanatsios/azuregameserversscalingkubernetes/master/artifacts/deploy.apiserver-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/hieumoscow/azuregameserversscalingkubernetes/master/artifacts/deploy.apiserver-controller.yaml
 # use this file for a cluster not configured with RBAC authentication
-# kubectl apply -f https://raw.githubusercontent.com/dgkanatsios/azuregameserversscalingkubernetes/master/artifacts/deploy.apiserver-controller.no-rbac.yaml
+# kubectl apply -f https://raw.githubusercontent.com/hieumoscow/azuregameserversscalingkubernetes/master/artifacts/deploy.apiserver-controller.no-rbac.yaml
 ```
 
 You're done! You can now test the Node.js echo demo app.
@@ -88,7 +88,7 @@ You're done! You can now test the Node.js echo demo app.
 Use this command to create a collection of DedicatedGameServers. The 'game' that will be created is the simple Node.js echo app, which source code is in `demos/simplenodejsudp` folder. This collection will create 5 DedicatedGameServers.
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/dgkanatsios/azuregameserversscalingkubernetes/master/artifacts/examples/simplenodejsudp/dedicatedgameservercollection.yaml
+kubectl apply -f https://raw.githubusercontent.com/hieumoscow/azuregameserversscalingkubernetes/master/artifacts/examples/simplenodejsudp/dedicatedgameservercollection.yaml
 ```
 
 If everything works good, 5 instances will be created. Type `kubectl get dgsc` to see the DedicatedGameCollection as well as its status
@@ -295,6 +295,11 @@ If you want to test the project locally, you should create a new .env file (base
 Mount to copy the files (e.g. from a Linux machine) - [instructions](https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-linux):
 ```bash
 sudo mount -t cifs //$STORAGE_ACCOUNT_NAME.file.core.windows.net/$AKS_PERS_SHARE_NAME /path -o vers=3.0,username=$STORAGE_ACCOUNT_NAME,password=$STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777
+```
+
+```
+STORAGE_ACCOUNT_NAME=hieuaksopenarena
+STORAGE_ACCOUNT_KEY=/tIg2UahmJPbTzOk593z6MFzo+VvKPQE9PH71OKAxT4KiiY4RBaDl5T15Ms4SDv1d/Q9xLSgdYxSlnltUFBbsw==
 ```
 
 Create a Kubernetes secret that will hold our storage account credentials:
