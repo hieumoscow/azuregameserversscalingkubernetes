@@ -26,16 +26,16 @@ This project requires VMs/Kubernetes Worker Nodes to have Public IPs and be able
 
 * Login to the Azure Portal
 * Find the resource group where the AKS resources are kept, it should have a name like `MC_resourceGroupName_AKSName_location`. Alternative, you can type `az resource show --namespace Microsoft.ContainerService --resource-type managedClusters -g $AKS_RESOURCE_GROUP -n $AKS_NAME -o json | jq .properties.nodeResourceGroup` on your shell to find it.
+```
+RESOURCE_GROUP_WITH_AKS_RESOURCES=$(az resource show --namespace Microsoft.ContainerService --resource-type managedClusters -g $AKS_RESOURCE_GROUP -n $AKS_NAME -o json | jq .properties.nodeResourceGroup | tr -d '"')
+```
 * Find the Network Security Group object, which should have a name like `aks-agentpool-********-nsg`
 * Select **Inbound Security Rules**
 * Select **Add** to create a new Rule with **Any** as the protocol (you could also select between TCP or UDP, depending on your game) and **20000-30000** as the Destination Port Ranges. Pick a proper name for the rule and leave everything else at their default values
 
 Alternatively, you can use the following command, after setting the `$RESOURCE_GROUP_WITH_AKS_RESOURCES` and `$NSG_NAME` variables with proper values:
 
-```
-RESOURCE_GROUP_WITH_AKS_RESOURCES=$(az resource show --namespace Microsoft.ContainerService --resource-type managedClusters -g $AKS_RESOURCE_GROUP -n $AKS_NAME -o json | jq .properties.nodeResourceGroup | tr -d '"')
-NSG_NAME=aks-agentpool-58982476-nsg
-```
+
 
 ```bash
 az network nsg rule create \
