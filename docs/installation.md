@@ -259,7 +259,7 @@ Congratulations, you have this project up and running!. You can type `kubectl de
 
 We have created a Docker container for the open source game [OpenArena](http://openarena.wikia.com/wiki/Main_Page). Here are the steps that you can use to try this game on your cluster.
 
-### Necessary stuff to test OpenArena game
+### Necessary stuff to test OpenArena game (Optional)
 
 To test the project's installation using the OpenArena game, you should create a storage account to copy the OpenArena asset files. This will allow us to use the [Docker image](https://hub.docker.com/r/dgkanatsios/docker_openarena_k8s/) that we have built (source is on the `demos/openarena` folder). Our Docker image accesses the game files from a volume mount, on an Azure File share. So, main game files are not copied into each running Docker image but pulled dynamically on container creation. As you can understand, this makes for a Docker image that is smaller and faster to load.
 
@@ -297,6 +297,9 @@ Mount to copy the files (e.g. from a Linux machine) - [instructions](https://doc
 sudo mount -t cifs //$STORAGE_ACCOUNT_NAME.file.core.windows.net/$AKS_PERS_SHARE_NAME /path -o vers=3.0,username=$STORAGE_ACCOUNT_NAME,password=$STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777
 ```
 
+### Prepopulated Storage Account FileShare with OpenArena game
+
+The below Storage Account has the needed OpenArena files, simply register it into your cluster.
 ```
 STORAGE_ACCOUNT_NAME=hieuaksopenarena
 STORAGE_ACCOUNT_KEY=/tIg2UahmJPbTzOk593z6MFzo+VvKPQE9PH71OKAxT4KiiY4RBaDl5T15Ms4SDv1d/Q9xLSgdYxSlnltUFBbsw==
