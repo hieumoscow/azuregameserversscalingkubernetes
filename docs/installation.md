@@ -7,8 +7,8 @@ Here are the necessary commands to create a new AKS cluster. To do that you can 
 ```bash
 az login # you don't need to do this if you're using Azure Cloud shell
 # you should modify these values to your preferred ones
-AKS_RESOURCE_GROUP=aksopenarenarg # name of the resource group AKS will be installed
-AKS_NAME=aksopenarena # AKS cluster name
+AKS_RESOURCE_GROUP={YOUR_RESOURCEGROUP} # name of the resource group AKS will be installed
+AKS_NAME={YOUR_AKSNAME} # AKS cluster name
 AKS_LOCATION=koreacentral # AKS datacenter location
 
 # create a resource group
